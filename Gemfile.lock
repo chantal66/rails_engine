@@ -167,13 +167,9 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-<<<<<<< HEAD
-  factory_girl_rails
-=======
   database_cleaner
   factory_girl_rails
   launchy
->>>>>>> development
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)
   pry
