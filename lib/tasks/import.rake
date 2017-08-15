@@ -3,6 +3,14 @@ require 'csv'
 namespace :import_csv do
   desc "loads data from csv files"
 
+  task :merchants => [:environment] do
+    puts 'Importing the merchants file for you darling...'
+    Merchant.destroy_all
+    CSV.foreach("#{Rails.root}/db/csv/merchants.csv", headers: true, header_converters: :symbol) do |row|
+      Merchant.create(row.to_h)
+    end
+  end
+
   task :items => [:environment] do
     puts 'Importing the items file for you darling...'
     Item.destroy_all
@@ -27,13 +35,6 @@ namespace :import_csv do
     end
   end
 
-  task :merchants => [:environment] do
-    puts 'Importing the merchants file for you darling...'
-    Merchant.destroy_all
-    CSV.foreach("#{Rails.root}/db/csv/merchants.csv", headers: true, header_converters: :symbol) do |row|
-      Merchant.create(row.to_h)
-    end
-  end
 
   task :transactions => [:environment] do
     puts 'Importing the transactions file for you darling...'
