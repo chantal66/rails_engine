@@ -164,7 +164,7 @@ describe "Items API" do
   it "returns a random resource" do
     create_list(:item, 5)
 
-    get "api/v1/items/random.json"
+    get "/api/v1/items/random.json"
 
     expect(response).to be_success
     item = JSON.parse(response.body)
