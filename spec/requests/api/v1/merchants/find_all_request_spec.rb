@@ -19,7 +19,7 @@ RSpec.describe 'Merchant Find ALL API' do
       expect(raw_merchant["name"]).to be_a String
     end
 
-    it "returns merchants that matches a specific name" do
+    it "returns all merchants that matches a specific name" do
       create_list(:merchant, 5)
       merchant = Merchant.first
 
@@ -33,7 +33,7 @@ RSpec.describe 'Merchant Find ALL API' do
       expect(raw_merchant["name"]).to eq(merchant.name)
     end
 
-    it 'retunrns the first merchant it matches by create_at date' do
+    it 'returns all the first merchant it matches by create_at date' do
       create_list(:merchant, 5, created_at: "2012-03-27 11:24:56")
       merchant = Merchant.first
 
@@ -47,7 +47,7 @@ RSpec.describe 'Merchant Find ALL API' do
       expect(raw_merchant['name']).to eq(merchant.name)
     end
 
-    it 'retunrns the first merchant it matches by update_at date' do
+    it 'returns all the first merchant it matches by update_at date' do
       create_list(:merchant, 5, created_at: "2012-03-27 11:24:56")
       merchant = Merchant.first
 
