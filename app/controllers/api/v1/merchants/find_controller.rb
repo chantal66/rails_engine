@@ -5,6 +5,7 @@ class Api::V1::Merchants::FindController < ApplicationController
   end
 
 
+
   private
 
   def merchant_params

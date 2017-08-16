@@ -32,7 +32,7 @@ RSpec.describe 'Merchant Find API' do
       expect(raw_merchant["name"]).to eq(merchant.name)
     end
 
-    it 'retunrns the first merchant it matches by create_at date' do
+    it 'retunrns the first merchant it matches by created_at date' do
       create_list(:merchant, 5, created_at: "2012-03-27 11:24:56")
       merchant = Merchant.first
 
@@ -46,7 +46,7 @@ RSpec.describe 'Merchant Find API' do
       expect(raw_merchant['name']).to eq(merchant.name)
     end
 
-    it 'retunrns the first merchant it matches by create_at date' do
+    it 'retunrns the first merchant it matches by updated_at date' do
       create_list(:merchant, 5, created_at: "2012-03-27 11:24:56")
       merchant = Merchant.first
 
