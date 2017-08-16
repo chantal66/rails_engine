@@ -13,10 +13,8 @@ RSpec.describe 'Merchant Find ALL API' do
 
       raw_merchant = JSON.parse(response.body)
 
-      expect(raw_merchant).to have_key("id")
-      expect(raw_merchant).to have_key("name")
-      expect(raw_merchant["id"]).to be_a Integer
-      expect(raw_merchant["name"]).to be_a String
+      expect(raw_merchant.first["id"]).to eq(merchant.id)
+      expect(raw_merchant.first["name"]).to eq(merchant.name)
     end
 
     it "returns all merchants that matches a specific name" do
@@ -28,9 +26,9 @@ RSpec.describe 'Merchant Find ALL API' do
       expect(response).to be_success
 
       raw_merchant = JSON.parse(response.body)
-
-      expect(raw_merchant["id"]).to eq(merchant.id)
-      expect(raw_merchant["name"]).to eq(merchant.name)
+      
+      expect(raw_merchant.first["id"]).to eq(merchant.id)
+      expect(raw_merchant.first["name"]).to eq(merchant.name)
     end
 
     it 'returns all the first merchant it matches by create_at date' do
