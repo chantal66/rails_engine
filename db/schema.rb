@@ -10,23 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-
-ActiveRecord::Schema.define(version: 20170815220451) do
-=======
-ActiveRecord::Schema.define(version: 20170815194621) do
->>>>>>> record-endpoint-items
+ActiveRecord::Schema.define(version: 20170816194631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
   create_table "customers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-=======
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.string "status"
+    t.bigint "merchant_id"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_invoices_on_customer_id"
+    t.index ["merchant_id"], name: "index_invoices_on_merchant_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -35,7 +40,6 @@ ActiveRecord::Schema.define(version: 20170815194621) do
     t.datetime "updated_at", null: false
     t.bigint "merchant_id"
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
->>>>>>> record-endpoint-items
   end
 
   create_table "merchants", force: :cascade do |t|
@@ -44,7 +48,6 @@ ActiveRecord::Schema.define(version: 20170815194621) do
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< HEAD
   create_table "transactions", force: :cascade do |t|
     t.string "Transaction"
     t.string "credit_card_number"
@@ -54,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170815194621) do
     t.datetime "updated_at", null: false
   end
 
-=======
+  add_foreign_key "invoices", "customers"
+  add_foreign_key "invoices", "merchants"
   add_foreign_key "items", "merchants"
->>>>>>> record-endpoint-items
 end
