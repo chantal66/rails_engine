@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :merchant do
-    name "Chantal"
+    name "Merchant name"
   end
 end
