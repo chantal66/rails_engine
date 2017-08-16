@@ -23,6 +23,13 @@ Rails.application.routes.draw do
       end
       resources :invoices, only: [:index, :show]
 
+      namespace :invoice_items do
+        get '/find_all', to: 'search#index'
+        get '/find', to: 'search#show'
+        get '/random', to: 'random#show'
+      end
+      resources :invoice_items, only: [:index, :show]
+
 # tests not passing with correction on line 29; need to investigate
       namespace :merchants do
         get '/find', to: 'find#show'
