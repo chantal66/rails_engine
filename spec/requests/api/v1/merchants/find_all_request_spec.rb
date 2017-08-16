@@ -26,7 +26,7 @@ RSpec.describe 'Merchant Find ALL API' do
       expect(response).to be_success
 
       raw_merchant = JSON.parse(response.body)
-
+      
       expect(raw_merchant.first["id"]).to eq(merchant.id)
       expect(raw_merchant.first["name"]).to eq(merchant.name)
     end
