@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'pry'
 describe "Items API" do
   it "sends a list of items" do
     create_list(:item, 3)
@@ -37,10 +37,10 @@ describe "Items API" do
     create(:item, description: "object_description")
 
     get "/api/v1/items/find?description=object_description"
-
+    binding.pry
     expect(response).to be_success
     item = JSON.parse(response.body)
-    expect(item["id"]).to eq(id)
+    expect(item[:id]).to eq(id)
   end
 
   it "returns a single object by unit_price" do
@@ -59,7 +59,7 @@ describe "Items API" do
     create(:item, merchant: Merchant.last)
     id = create(:item, merchant: Merchant.last).id
 
-    get "/api/v1/items/find?merchant_id=#{Merchant.last.id}"
+    get "/api/v1/items/find?merchant_id=#{Merchant.first.id}"
 
     expect(response).to be_success
     item = JSON.parse(response.body)
@@ -94,9 +94,9 @@ describe "Items API" do
       get "/api/v1/items/find_all?name=item name"
 
       expect(response).to be_success
-      expect(items.count).to eq(10)
 
       items = JSON.parse(response.body)
+      expect(items.count).to eq(10)
       expect(items.sample["name"]).to eq("item name")
   end
 
@@ -107,9 +107,9 @@ describe "Items API" do
     get "/api/v1/items/find_all?description=I want to find the item with this description"
 
     expect(response).to be_success
-    expect(items.count).to eq(5)
 
     items = JSON.parse(response.body)
+    expect(items.count).to eq(5)
     expect(items.sample["description"]).to eq("I want to find the item with this description")
   end
 
@@ -119,9 +119,9 @@ describe "Items API" do
     get "/api/v1/items/find_all?unit_price=100.90"
 
     expect(response).to be_success
-    expect(items.count).to eq(5)
 
     items = JSON.parse(response.body)
+    expect(items.count).to eq(5)
     expect(items.sample["unit_price"]).to eq(100.90)
   end
 
@@ -133,9 +133,9 @@ describe "Items API" do
     get "/api/v1/items/find_all?merchant_id=#{Merchant.first.id}"
 
     expect(response).to be_success
-    expect(items.count).to eq(5)
 
     items = JSON.parse(response.body)
+    expect(items.count).to eq(5)
     expect(items.sample["merchant_id"]).to eq(Merchant.first.id)
   end
 
@@ -146,7 +146,7 @@ describe "Items API" do
     get "/api/v1/items/find_all?created_at=10 January 2016"
 
     expect(response).to be_success
-    #items = JSON.parse(response.body)
+    items = JSON.parse(response.body)
     expect(items.count).to eq(5)
   end
 
