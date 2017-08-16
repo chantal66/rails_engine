@@ -38,6 +38,7 @@ describe "Transactions API" do
       expect(raw_transaction["result"]).to be_a String
       # expect(raw_transaction).to have_key("invoice_id")
       # expect(raw_transaction["invoice_id"]).to be_a Integer
+      binding.pry
 
     end
   end

@@ -4,7 +4,7 @@ class CreateTransactions < ActiveRecord::Migration[5.1]
       t.string :Transaction
       t.string :credit_card_number
       t.date :credit_card_expiration_date
-      t.integer :result
+      t.string :result
 
       t.timestamps
     end
