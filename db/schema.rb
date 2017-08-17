@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20170816234935) do
     t.string "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "invoice_id"
   end
 
   add_foreign_key "invoice_items", "invoices"
