@@ -3,12 +3,12 @@ Rails.application.routes.draw do
     namespace :v1 do
 
       namespace :items do
+        get '/:id/best_day', to: 'best_day#index'
         get '/find_all', to: 'search#index'
         get '/find', to: 'search#show'
         get '/random', to: 'random#show'
-        get ':id/invoice_items', to: 'invoice_items#index'
-        get ':id/merchant', to: 'merchants#show'
-        get '/:id/best_day', to: 'best_day#index'
+        get '/:id/invoice_items', to: 'invoice_items#index'
+        get '/:id/merchant', to: 'merchants#show'
       end
 
       namespace :invoices do
