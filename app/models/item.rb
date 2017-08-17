@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
-  #validates_presence_of :name, :merchant_id, :description
+  validates_presence_of :name, :description, :unit_price, :merchant_id, presence: true
+
   belongs_to :merchant
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
@@ -11,5 +12,18 @@ class Item < ApplicationRecord
         .group("best_day")
         .order("items_sold DESC, best_day DESC")
         .limit(1)
+  end
+
+  def self.most_popular_items
+    Item.joins(
+      "INNER JOIN (" +
+        Invoice.joins(:invoice_items, :transactions)
+            .where(transactions: {result: 'success'})
+            .select("SUM(invoice_items.quantity) AS total_sold, invoice_items.item_id")
+            .group("item_id")
+            .order("total_sold DESC")
+            .limit(quantity).to_sql +
+        ") items_sold ON items_sold.item_id = items.id"
+    )
   end
 end

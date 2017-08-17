@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
       namespace :items do
         get '/:id/best_day', to: 'best_day#index'
+        get '/most_items', to: 'most_items#index'
         get '/find_all', to: 'search#index'
         get '/find', to: 'search#show'
         get '/random', to: 'random#show'
