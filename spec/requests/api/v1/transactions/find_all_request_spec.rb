@@ -20,7 +20,7 @@ RSpec.describe "Transaction Find All API" do
       expect(raw_transaction["result"]).to be_a String
     end
 
-    xit "returns all transactions it matches to a credit card number" do
+    it "returns all transactions it matches to a credit card number" do
       create_list(:transaction, 4)
       transaction = Transaction.first
 
@@ -38,7 +38,7 @@ RSpec.describe "Transaction Find All API" do
       expect(raw_transaction["result"]).to be_a String
     end
 
-    xit "returns all transactions it matches to a result" do
+    it "returns all transactions it matches to a result" do
       create_list(:transaction, 4)
       transaction = Transaction.first
 
@@ -56,7 +56,7 @@ RSpec.describe "Transaction Find All API" do
       expect(raw_transaction["result"]).to be_a String
     end
 
-    xit "returns all transactions it matches to an invoice id" do
+    it "returns all transactions it matches to an invoice id" do
       create_list(:transaction, 4)
       transaction = Transaction.first
 
@@ -74,9 +74,8 @@ RSpec.describe "Transaction Find All API" do
       expect(raw_transaction["result"]).to be_a String
     end
 
-    xit "returns all transactions it matches by created at date" do
+    it "returns all transactions it matches by created at date" do
       create_list(:transaction, 4, created_at: "2012-03-27 11:24:56")
-      transaction = Transaction.first
 
       get "/api/v1/transactions/find_all?created_at=2012-03-27 11:24:56"
 
@@ -92,9 +91,8 @@ RSpec.describe "Transaction Find All API" do
       expect(raw_transaction["result"]).to be_a String
     end
 
-    xit "returns all transactions it matches by updated at date" do
+    it "returns all transactions it matches by updated at date" do
       create_list(:transaction, 4, updated_at: "2012-03-27 11:24:56")
-      transaction = Transaction.first
 
       get "/api/v1/transactions/find_all?updated_at=2012-03-27 11:24:56"
 

@@ -5,7 +5,7 @@ class Api::V1::Transactions::FindController < ApplicationController
   end
 
   def index
-    render json: Invoice.where(transaction_params)
+    render json: Transaction.where(transaction_params)
   end
 
   private
