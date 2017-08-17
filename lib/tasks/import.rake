@@ -52,9 +52,9 @@ namespace :import_csv do
     puts 'Importing the customers file for you darling...'
     Customer.destroy_all
     CSV.foreach("#{Rails.root}/db/csv/customers.csv", headers: true, header_converters: :symbol) do |row|
-      Customer.create(row.to_h)
+      Customer.create!(row.to_h)
     end
     puts 'Customers imported darling'
   end
-  task :all => [:items, :invoices, :invoice_items, :merchants, :transactions, :customers]
+  task :all => [:customers, :merchants,  :items, :invoices, :invoice_items, :transactions]
 end
