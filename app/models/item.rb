@@ -14,7 +14,7 @@ class Item < ApplicationRecord
         .limit(1)
   end
 
-  def self.most_popular_items
+  def self.most_popular_items(quantity)
     Item.joins(
       "INNER JOIN (" +
         Invoice.joins(:invoice_items, :transactions)
