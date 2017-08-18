@@ -49,12 +49,6 @@ Rails.application.routes.draw do
 
       namespace :customers do
         get '/find', to: 'find#show'
-<<<<<<< HEAD
-        get '/find_all', to: 'find_all#show'
-        get '/random', to: 'random#show'
-      end
-
-=======
         get '/find_all', to: 'find#index'
         get '/random', to: 'random#show'
         get '/:id/favorite_merchant', to: 'favorite_merchant#show'
@@ -63,7 +57,6 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :show]
       resources :invoices, only: [:index, :show]
       resources :invoice_items, only: [:index, :show]
->>>>>>> 5d12d6c64142075ba36c5192d13fc743bedc537d
       resources :merchants, only: [:index, :show]
       resources :transactions, only: [:index, :show]
       resources :customers, only: [:index, :show]
