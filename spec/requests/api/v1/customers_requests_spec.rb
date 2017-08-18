@@ -11,6 +11,7 @@ describe "Customers API" do
       raw_customers = JSON.parse(response.body)
       raw_customer = raw_customers.first
 
+      expect(response).to have_http_status(200)
       expect(raw_customers.count).to eq(4)
       expect(raw_customer).to have_key("first_name")
       expect(raw_customer).to have_key("last_name")
@@ -29,6 +30,7 @@ describe "Customers API" do
 
       raw_customer = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_customer["id"]).to eq(customer.id)
       expect(raw_customer).to have_key("first_name")
       expect(raw_customer).to have_key("last_name")

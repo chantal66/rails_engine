@@ -13,6 +13,7 @@ RSpec.describe 'Merchant Find ALL API' do
 
       raw_merchant = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_merchant.first["id"]).to eq(merchant.id)
       expect(raw_merchant.first["name"]).to eq(merchant.name)
     end
@@ -26,7 +27,8 @@ RSpec.describe 'Merchant Find ALL API' do
       expect(response).to be_success
 
       raw_merchant = JSON.parse(response.body)
-      
+
+      expect(response).to have_http_status(200)
       expect(raw_merchant.first["id"]).to eq(merchant.id)
       expect(raw_merchant.first["name"]).to eq(merchant.name)
     end
@@ -41,6 +43,7 @@ RSpec.describe 'Merchant Find ALL API' do
 
       raw_merchant = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_merchant['id']).to eq(merchant.id)
       expect(raw_merchant['name']).to eq(merchant.name)
     end
@@ -55,6 +58,7 @@ RSpec.describe 'Merchant Find ALL API' do
 
       raw_merchant = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_merchant['id']).to eq(merchant.id)
       expect(raw_merchant['name']).to eq(merchant.name)
     end

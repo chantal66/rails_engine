@@ -12,6 +12,7 @@ RSpec.describe 'Transaction Find API' do
 
       raw_transaction = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_transaction).to have_key("invoice_id")
       expect(raw_transaction).to have_key("credit_card_number")
       expect(raw_transaction).to have_key("result")
@@ -30,6 +31,7 @@ RSpec.describe 'Transaction Find API' do
 
       raw_transaction = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_transaction).to have_key("invoice_id")
       expect(raw_transaction).to have_key("credit_card_number")
       expect(raw_transaction).to have_key("result")
@@ -49,6 +51,7 @@ RSpec.describe 'Transaction Find API' do
 
       raw_transaction = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_transaction).to have_key("invoice_id")
       expect(raw_transaction).to have_key("credit_card_number")
       expect(raw_transaction).to have_key("result")
@@ -68,6 +71,7 @@ RSpec.describe 'Transaction Find API' do
 
       raw_transaction = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_transaction).to have_key("invoice_id")
       expect(raw_transaction).to have_key("credit_card_number")
       expect(raw_transaction).to have_key("result")
@@ -87,6 +91,7 @@ RSpec.describe 'Transaction Find API' do
 
       raw_transaction = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_transaction).to have_key("invoice_id")
       expect(raw_transaction).to have_key("credit_card_number")
       expect(raw_transaction).to have_key("result")
@@ -104,6 +109,7 @@ RSpec.describe 'Transaction Find API' do
 
       raw_transaction = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_transaction).to have_key("invoice_id")
       expect(raw_transaction).to have_key("credit_card_number")
       expect(raw_transaction).to have_key("result")

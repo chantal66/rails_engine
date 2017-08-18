@@ -72,6 +72,7 @@ describe 'Invoice Relationship endpoints' do
 
       customer = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(customer).to have_key("first_name")
       expect(customer).to have_key("last_name")
     end
@@ -88,6 +89,7 @@ describe 'Invoice Relationship endpoints' do
 
       merchant = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(merchant).to have_key("name")
     end
   end

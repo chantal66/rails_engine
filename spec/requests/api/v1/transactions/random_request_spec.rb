@@ -8,6 +8,7 @@ describe 'Random transaction API' do
 
       expect(response).to be_success
 
+      expect(response).to have_http_status(200)
       raw_merchant = JSON.parse(response.body)
       expect(raw_merchant).to have_key("id")
     end

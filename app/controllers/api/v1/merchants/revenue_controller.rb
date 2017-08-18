@@ -2,9 +2,9 @@ class Api::V1::Merchants::RevenueController < ApplicationController
 
   def show
     if params[:date]
-      @revenue = Merchant.revenue_for_merchant_by_date(params[:merchant_id], params[:date])
+      render json: Merchant.revenue_for_one_merchant_by_date(params[:id], params[:date]), serializer: RevenueByDateForOneMerchantSerializer
     else
-      @revenue = Merchant.revenue_for_merchant(params[:merchant_id])
+      render json: Merchant.revenue_for_one_merchant(params[:id]), serializer: RevenueForOneMerchantSerializer
     end
   end
 
