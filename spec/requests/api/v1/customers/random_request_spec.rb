@@ -11,6 +11,7 @@ describe 'Random customer API' do
 
       raw_data = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_data).to have_key("id")
     end
   end

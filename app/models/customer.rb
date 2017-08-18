@@ -3,6 +3,7 @@ class Customer < ApplicationRecord
 
   has_many :invoices
   has_many :transactions, through: :invoices
+  has_many :merchants, through: :invoices
 
   def self.favorite_merchant(customer_id)
     Merchant.joins(
@@ -15,5 +16,13 @@ class Customer < ApplicationRecord
               .limit(1).to_sql +
           ") invoice_transactions ON merchants.id = invoice_transactions.merchant_id"
     )
+  end
+
+  def self.favorite_customer(merch_id)
+                  Customer.joins(invoices: :transactions)
+                  .where(invoices: { merchant_id: merch_id }, transactions: {result: 'success'})
+                  .group('customers.id')
+                  .order('count(transactions) DESC')
+                  .first
   end
 end

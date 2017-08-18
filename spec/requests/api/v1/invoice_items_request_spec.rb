@@ -6,6 +6,7 @@ describe "Invoice items API" do
 
     get '/api/v1/invoice_items'
 
+    expect(response).to have_http_status(200)
     expect(response).to be_success
     invoice_items = JSON.parse(response.body)
     expect(invoice_items.count).to eq(3)
@@ -16,6 +17,7 @@ describe "Invoice items API" do
 
     get "/api/v1/invoice_items/#{id}"
 
+    expect(response).to have_http_status(200)
     expect(response).to be_success
     invoice_item = JSON.parse(response.body)
     expect(invoice_item["id"]).to eq(id)

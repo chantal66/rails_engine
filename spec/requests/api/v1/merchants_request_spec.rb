@@ -11,6 +11,7 @@ describe "Merchants API" do
       merchants = JSON.parse(response.body)
       merchant = merchants.first
 
+      expect(response).to have_http_status(200)
       expect(merchants.count).to eq(4)
       expect(merchant).to have_key("name")
       expect(merchant["name"]).to be_a String
@@ -27,6 +28,7 @@ describe "Merchants API" do
 
       raw_merchant = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_merchant["id"]).to eq(merchant.id)
       expect(raw_merchant).to have_key("name")
       expect(raw_merchant["name"]).to be_a String
