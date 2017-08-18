@@ -17,10 +17,6 @@ class Customer < ApplicationRecord
           ") invoice_transactions ON merchants.id = invoice_transactions.merchant_id"
     )
   end
-  Customer.joins(invoices: :transactions).where("transactions.result=?", "suc
-  cess").group(:id)
-  Customer.joins(invoices: :transactions).where("transactions.result=?", "success").joins
-(:merchants)
 
   def self.favorite(merch_id)
                   .joins(invoices: :transactions)
