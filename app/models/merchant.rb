@@ -26,7 +26,7 @@ class Merchant < ApplicationRecord
 
   def self.revenue_for_one_merchant_by_date(id, date)
     value = Merchant.find_by_sql [
-                                     "SELECT merchants.name merchant_name, invoices.updated_at AS date, ROUND(SUM(invoice_items.quantity * invoice_items.unit_price / 100.00),2) AS revenue
+      "SELECT merchants.name merchant_name, invoices.updated_at AS date, ROUND(SUM(invoice_items.quantity * invoice_items.unit_price / 100.00),2) AS revenue
       FROM merchants
       INNER JOIN items ON merchants.id = items.merchant_id
       INNER JOIN invoice_items ON items.id = invoice_items.item_id
