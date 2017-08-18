@@ -11,7 +11,7 @@ class Item < ApplicationRecord
         .select("SUM(invoice_items.quantity) AS items_sold, invoices.created_at AS best_day")
         .group("best_day")
         .order("items_sold DESC, best_day DESC")
-        .limit(1)
+        .limit(1).first
   end
 
   def self.most_popular_items(quantity)

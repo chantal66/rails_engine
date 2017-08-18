@@ -11,8 +11,8 @@ RSpec.describe "Merchants/Revenue API" do
 
       get "/api/v1/merchants/#{merchant.id}/revenue"
 
-      raw_revenue = JSON.parse(response.body)
 binding.pry
+      raw_revenue = JSON.parse(response.body)
       expect(raw_revenue["revenue"]).to be_a String
       expect(raw_revenue["revenue"]).to eq("44.44")
     end
