@@ -22,7 +22,7 @@ class Merchant < ApplicationRecord
   end
 
   def self.most_revenue(quantity=nil)
-            .select("merchants.*, sum(unit_price * quantity) AS revenue")
+    Merchant.select("merchants.*, sum(unit_price * quantity) AS revenue")
             .joins(invoices: :invoice_items)
             .group("id")
             .limit(quantity)
