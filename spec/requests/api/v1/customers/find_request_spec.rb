@@ -12,6 +12,7 @@ RSpec.describe "Customer Find API" do
 
       raw_customer = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_customer).to have_key("id")
       expect(raw_customer).to have_key("first_name")
       expect(raw_customer).to have_key("last_name")
@@ -30,6 +31,7 @@ RSpec.describe "Customer Find API" do
 
       raw_customer = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_customer).to have_key("id")
       expect(raw_customer).to have_key("first_name")
       expect(raw_customer).to have_key("last_name")
@@ -48,6 +50,7 @@ RSpec.describe "Customer Find API" do
 
       raw_customer = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_customer).to have_key("id")
       expect(raw_customer).to have_key("first_name")
       expect(raw_customer).to have_key("last_name")
@@ -65,6 +68,7 @@ RSpec.describe "Customer Find API" do
 
       raw_customer = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_customer).to have_key("id")
       expect(raw_customer).to have_key("first_name")
       expect(raw_customer).to have_key("last_name")
@@ -82,6 +86,7 @@ RSpec.describe "Customer Find API" do
 
       raw_customer = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_customer).to have_key("id")
       expect(raw_customer).to have_key("first_name")
       expect(raw_customer).to have_key("last_name")

@@ -20,6 +20,7 @@ RSpec.describe "Customers/FavoriteMerchant API" do
 
       raw_merchant = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_merchant.first).to have_key("id")
       expect(raw_merchant.first).to have_key("name")
       expect(raw_merchant.first["id"]).to be_an Integer

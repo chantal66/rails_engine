@@ -26,7 +26,7 @@ describe "Invoices API" do
     create(:invoice, status: "success")
 
     get "/api/v1/items/find?status=success"
-    binding.pry
+    # binding.pry
     expect(response).to be_success
     #response.success?
     invoice = JSON.parse(response.body)

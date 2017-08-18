@@ -37,7 +37,7 @@ describe "Items API" do
     create(:item, description: "object_description")
 
     get "/api/v1/items/find?description=object_description"
-    binding.pry
+    # binding.pry
     expect(response).to be_success
     item = JSON.parse(response.body)
     expect(item[:id]).to eq(id)

@@ -17,6 +17,7 @@ RSpec.describe "Merchants/Revenue API" do
 
       raw_merchant = JSON.parse(response.body)
 
+      expect(response).to have_http_status(200)
       expect(raw_merchant).to have_key("revenue")
       expect(raw_merchant["revenue"]).to be_a String
       expect(raw_merchant["revenue"]).to eq("27291.63")
