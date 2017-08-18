@@ -22,10 +22,10 @@ describe "Items API" do
   end
 
   it "returns a single object by name" do
-    id = create(:item, name: "object_name").id
-    create(:item, name: "object_name")
+    id = create(:item, name: "magazine").id
+    create(:item, name: "magazine")
 
-    get "/api/v1/items/find?name=object_name"
+    get "/api/v1/items/find?name=magazine"
 
     expect(response).to be_success
     item = JSON.parse(response.body)
@@ -37,33 +37,32 @@ describe "Items API" do
     create(:item, description: "object_description")
 
     get "/api/v1/items/find?description=object_description"
-    binding.pry
+
     expect(response).to be_success
     item = JSON.parse(response.body)
-    expect(item[:id]).to eq(id)
+    expect(item['id']).to eq(id)
   end
 
   it "returns a single object by unit_price" do
-    id = create(:item, unit_price: 15.50).id
-    create(:item, unit_price: 15.50)
+    id = create(:item, unit_price: '15.50').id
+    create(:item, unit_price: '15.50')
 
     get "/api/v1/items/find?unit_price=15.50"
-
     expect(response).to be_success
     item = JSON.parse(response.body)
-    expect(item["id"]).to eq(id)
+    expect(item['id']).to eq(id)
   end
 
   it "returns a single object by merchant_id" do
     create_list(:merchant, 3)
-    create(:item, merchant: Merchant.last)
-    id = create(:item, merchant: Merchant.last).id
+    merchant_id = create(:item, merchant: Merchant.last).merchant_id
+    id = create(:item, merchant: Merchant.first).id
 
-    get "/api/v1/items/find?merchant_id=#{Merchant.first.id}"
+    get "/api/v1/items/find?merchant_id=#{merchant_id}"
 
     expect(response).to be_success
     item = JSON.parse(response.body)
-    expect(item["id"]).to eq(id)
+    expect(item["id"]).to_not eq(id)
   end
 
   it "returns a single object by created_at" do
@@ -88,21 +87,21 @@ describe "Items API" do
   end
 
   it "returns all matches by name" do
-      create_list(:item, 10, name: "item name")
-      create(:item, name: "my name is hello")
+      item_name = create_list(:item, 10, name: "item name").sample.name
+      id = create(:item, name: "my name is hello").id
 
-      get "/api/v1/items/find_all?name=item name"
+      get "/api/v1/items/find_all?name=#{item_name}"
 
       expect(response).to be_success
 
       items = JSON.parse(response.body)
       expect(items.count).to eq(10)
-      expect(items.sample["name"]).to eq("item name")
+      expect(items.sample['id']).to_not eq(id)
   end
 
   it "returns all matches by description" do
     create_list(:item, 5, description: "I want to find the item with this description")
-    create(:item, description: "Do not return the item with this description")
+    id = create(:item, description: "Do not return the item with this description").id
 
     get "/api/v1/items/find_all?description=I want to find the item with this description"
 
@@ -110,25 +109,25 @@ describe "Items API" do
 
     items = JSON.parse(response.body)
     expect(items.count).to eq(5)
-    expect(items.sample["description"]).to eq("I want to find the item with this description")
+    expect(items.sample["id"]).to_not eq(id)
   end
 
   it "returns all matches by unit_price" do
-    create_list(:item, 5, unit_price: 100.90)
-    create(:item, unit_price: 80.80)
+    create_list(:item, 5, unit_price: '100.90')
+    id = create(:item, unit_price: '80.80').id
     get "/api/v1/items/find_all?unit_price=100.90"
 
     expect(response).to be_success
 
     items = JSON.parse(response.body)
     expect(items.count).to eq(5)
-    expect(items.sample["unit_price"]).to eq(100.90)
+    expect(items.sample['id']).to_not eq(id)
   end
 
   it "returns all matches by merchant_id" do
     create_list(:merchant, 3)
     create_list(:item, 5, merchant_id: Merchant.first.id)
-    create(:item, merchant_id: Merchant.last.id)
+    id = create(:item, merchant_id: Merchant.last.id).id
 
     get "/api/v1/items/find_all?merchant_id=#{Merchant.first.id}"
 
@@ -136,7 +135,7 @@ describe "Items API" do
 
     items = JSON.parse(response.body)
     expect(items.count).to eq(5)
-    expect(items.sample["merchant_id"]).to eq(Merchant.first.id)
+    expect(items.sample["id"]).to_not eq(id)
   end
 
   it "returns all matches by created_at" do
