@@ -8,4 +8,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
     end
   end
 
+  def index
+   render json: Merchant.most_revenue(search_params[:quantity])
+  end
 end
