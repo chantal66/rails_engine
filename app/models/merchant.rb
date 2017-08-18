@@ -4,16 +4,9 @@ class Merchant < ApplicationRecord
   has_many :invoices
   has_many :items
 
-  def self.revenue_on_date(date)
-    Invoice.joins(:invoice_items, :transactions)
-        .where(invoices: {created_at: date}, transactions: {result: 'success'})
-        .select("invoices.created_at::timestamp::date AS date, SUM(invoice_items.quantity*invoice_items.unit_price::numeric)/100 AS total_revenue")
-        .group("date")
-  end
-
   def self.revenue_for_one_merchant(id)
     value = Merchant.find_by_sql [
-                                     "SELECT merchants.name merchant_name, ROUND(SUM(invoice_items.quantity * invoice_items.unit_price / 100.00),2) AS revenue
+      "SELECT merchants.name merchant_name, ROUND(SUM(invoice_items.quantity * invoice_items.unit_price / 100.00),2) AS revenue
       FROM merchants
       INNER JOIN items ON merchants.id = items.merchant_id
       INNER JOIN invoice_items ON items.id = invoice_items.item_id
