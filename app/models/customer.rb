@@ -17,5 +17,4 @@ class Customer < ApplicationRecord
           ") invoice_transactions ON merchants.id = invoice_transactions.merchant_id"
     ).first
   end
-
 end

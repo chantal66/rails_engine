@@ -66,11 +66,6 @@ class Merchant < ApplicationRecord
   end
 
   def self.favorite_customer(merchant_id)
-    # Customer.joins(invoices: :transactions)
-    # .where(invoices: { merchant_id: merch_id }, transactions: {result: 'success'})
-    # .group('customers.id')
-    # .order('count(transactions) DESC')
-    # .first
     Customer.joins(
     "INNER JOIN (" +
       Invoice.joins(:transactions)
@@ -81,5 +76,14 @@ class Merchant < ApplicationRecord
         .limit(1).to_sql +
     ") invoice_transactions ON customers.id = invoice_transactions.customer_id"
     ).first
+  end
+
+  def self.total_revenue(date=nil)
+    select("merchants.id")
+      .joins(invoices: [:invoice_items, :transactions])
+      .where("transactions.result ='success'")
+      .where("invoices.created_at=?", date)
+      .group('id')
+      .sum("invoice_items.unit_price * invoice_items.quantity")
   end
 end
