@@ -26,7 +26,6 @@ RSpec.describe "Customers/FavoriteMerchant API" do
       expect(raw_merchant.first).to have_key("name")
       expect(raw_merchant.first["id"]).to be_an Integer
       expect(raw_merchant.first["name"]).to be_an String
-      expect()
     end
   end
 end
