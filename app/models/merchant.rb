@@ -66,20 +66,25 @@ class Merchant < ApplicationRecord
   end
 
   def self.favorite_customer(merchant_id)
-    # Customer.joins(invoices: :transactions)
-    # .where(invoices: { merchant_id: merch_id }, transactions: {result: 'success'})
-    # .group('customers.id')
-    # .order('count(transactions) DESC')
-    # .first
-    Customer.joins(
-    "INNER JOIN (" +
-      Invoice.joins(:transactions)
-        .where(invoices: {merchant_id: merchant_id}, transactions: {result: "success"})
-        .select("invoices.customer_id, COUNT(invoices.customer_id) AS frequency")
-        .group("invoices.customer_id")
-        .order("frequency DESC")
-        .limit(1).to_sql +
-    ") invoice_transactions ON customers.id = invoice_transactions.customer_id"
-    ).first
+    Customer.joins(invoices: :transactions)
+    .where(invoices: { merchant_id: merchant_id }, transactions: {result: 'success'})
+    .group('customers.id')
+    .order('count(transactions) DESC')
+    .first
+  end
+
+  def self.customers_with_pending_invoices(id)
+    Merchant.find_by_sql [
+     "WITH pending_invoices as (SELECT i.id inv_id, MAX(t.id) max FROM invoices i INNER JOIN transactions t ON i.id = t.invoice_id GROUP BY 1
+      EXCEPT
+      SELECT i.id, MAX(t.id) FROM invoices i INNER JOIN transactions t ON i.id = t.invoice_id WHERE result = 'success' GROUP BY 1)
+      SELECT c.id, c.first_name, c.last_name
+      FROM merchants m
+      INNER JOIN invoices i ON i.merchant_id = m.id
+      INNER JOIN pending_invoices ON pending_invoices.inv_id = i.id
+      INNER JOIN customers c ON i.customer_id = c.id
+      WHERE m.id = #{id}
+      GROUP BY 1,2,3;"
+     ]
   end
 end
