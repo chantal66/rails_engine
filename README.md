@@ -1,4 +1,4 @@
-# Rails Engine [![Build Status]
+# Rails Engine
 
 ## Intro
 
