@@ -10,7 +10,7 @@ The markdown for this project can be found [here](http://backend.turing.io/modul
 
 Chantal Justamond [github](https://github.com/chantal66)
 
-Desislava Todorova[github](https://github.com/DesTodo)
+Desislava Todorova [github](https://github.com/DesTodo)
 
 
 ## How to Get Started
