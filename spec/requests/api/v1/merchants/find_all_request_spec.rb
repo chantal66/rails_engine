@@ -49,7 +49,7 @@ RSpec.describe 'Merchant Find ALL API' do
     end
 
     it 'returns all the first merchant it matches by update_at date' do
-      create_list(:merchant, 5, created_at: "2012-03-27 11:24:56")
+      create_list(:merchant, 5, updated_at: "2012-03-27 11:24:56")
       merchant = Merchant.first
 
       get '/api/v1/merchants/find?updated_at=2012-03-27 11:24:56'

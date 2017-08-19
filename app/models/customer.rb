@@ -15,7 +15,7 @@ class Customer < ApplicationRecord
               .order("frequency DESC")
               .limit(1).to_sql +
           ") invoice_transactions ON merchants.id = invoice_transactions.merchant_id"
-    )
+    ).first
   end
 
   def self.favorite_customer(merch_id)
