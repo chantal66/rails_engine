@@ -64,4 +64,22 @@ class Merchant < ApplicationRecord
         .order("items_sold DESC")
         .limit(quantity)
   end
+
+  def self.favorite_customer(merchant_id)
+    # Customer.joins(invoices: :transactions)
+    # .where(invoices: { merchant_id: merch_id }, transactions: {result: 'success'})
+    # .group('customers.id')
+    # .order('count(transactions) DESC')
+    # .first
+    Customer.joins(
+    "INNER JOIN (" +
+      Invoice.joins(:transactions)
+        .where(invoices: {merchant_id: merchant_id}, transactions: {result: "success"})
+        .select("invoices.customer_id, COUNT(invoices.customer_id) AS frequency")
+        .group("invoices.customer_id")
+        .order("frequency DESC")
+        .limit(1).to_sql +
+    ") invoice_transactions ON customers.id = invoice_transactions.customer_id"
+    ).first
+  end
 end
