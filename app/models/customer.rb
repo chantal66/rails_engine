@@ -18,11 +18,4 @@ class Customer < ApplicationRecord
     ).first
   end
 
-  def self.favorite_customer(merch_id)
-                  Customer.joins(invoices: :transactions)
-                  .where(invoices: { merchant_id: merch_id }, transactions: {result: 'success'})
-                  .group('customers.id')
-                  .order('count(transactions) DESC')
-                  .first
-  end
 end
