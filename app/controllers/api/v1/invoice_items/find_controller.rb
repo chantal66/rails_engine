@@ -7,6 +7,9 @@ class Api::V1::InvoiceItems::FindController < ApplicationController
   end
 
   def index
+    if params[:unit_price]
+      params[:unit_price] = params[:unit_price].to_f*100
+    end
     render json: InvoiceItem.where(invoice_item_params)
   end
 

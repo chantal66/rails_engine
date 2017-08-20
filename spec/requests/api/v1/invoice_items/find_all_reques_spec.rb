@@ -26,7 +26,7 @@ RSpec.describe "InvoiceItem/FindAll API" do
       expect(raw_invoice_item["unit_price"]).to be_a String
     end
 
-    xit "returns all invoice_items that match a specific quantity" do
+    it "returns all invoice_items that match a specific quantity" do
       create_list(:invoice_item, 3)
       invoice_item = InvoiceItem.first
       invoice_item_3 = InvoiceItem.last
@@ -47,7 +47,7 @@ RSpec.describe "InvoiceItem/FindAll API" do
       expect(raw_invoice_item["quantity"]).to eq(invoice_item.quantity)
     end
 
-    xit "returns all invoice_items that match a specific unit_price" do
+    it "returns all invoice_items that match a specific unit_price" do
       create_list(:invoice_item, 3, unit_price: 55890)
       invoice_item = InvoiceItem.first
       invoice_item_3 = InvoiceItem.last
@@ -68,7 +68,7 @@ RSpec.describe "InvoiceItem/FindAll API" do
       expect(raw_invoice_item["unit_price"]).to eq("558.9")
     end
 
-    xit "returns all invoice_items that match a specific invoice id" do
+    it "returns all invoice_items that match a specific invoice id" do
       create_list(:invoice_item, 3)
       invoice_item = InvoiceItem.first
       invoice_item_3 = InvoiceItem.last
@@ -89,7 +89,7 @@ RSpec.describe "InvoiceItem/FindAll API" do
       expect(raw_invoice_item["invoice_id"]).to eq(invoice_item.invoice_id)
     end
 
-    xit "returns all invoice_items that match a specific item id" do
+    it "returns all invoice_items that match a specific item id" do
       create_list(:invoice_item, 3)
       invoice_item = InvoiceItem.first
       invoice_item_3 = InvoiceItem.last
@@ -110,7 +110,7 @@ RSpec.describe "InvoiceItem/FindAll API" do
       expect(raw_invoice_item["item_id"]).to eq(invoice_item.item_id)
     end
 
-    xit "returns all invoice_items that match a specific created_at" do
+    it "returns all invoice_items that match a specific created_at" do
       create_list(:invoice_item, 3, created_at: "2012-03-04 22:53:51")
       invoice_item = InvoiceItem.first
       invoice_item_3 = InvoiceItem.last
@@ -130,7 +130,7 @@ RSpec.describe "InvoiceItem/FindAll API" do
       expect(raw_invoice_item_3["id"]).to eq(invoice_item_3.id)
     end
 
-    xit "returns all invoice_items that match a specific updated_at" do
+    it "returns all invoice_items that match a specific updated_at" do
       create_list(:invoice_item, 3, updated_at: "2012-03-04 22:53:51")
       invoice_item = InvoiceItem.first
       invoice_item_3 = InvoiceItem.last
