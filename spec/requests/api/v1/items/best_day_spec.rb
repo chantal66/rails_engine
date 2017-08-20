@@ -1,26 +1,24 @@
-
 require 'rails_helper'
 
-RSpec.describe 'Item Best Day API' do
-  context 'when the data exists' do
-    it 'returns best day' do
-      date = DateTime.new(2015,3,20)
-      other_date = DateTime.new(2015,1,30)
-      item = create(:item)
-      invoice = create(:invoice, created_at: date)
-      other_invoice = create(:invoice, created_at: other_date)
-      another_invoice = create(:invoice, created_at: other_date)
+RSpec.describe "Items BestDay API" do
+  context "GET /api/v1/items/:id/best_day" do
+    it "returns the date with the most sales for the given item using the invoice date" do
+      merchant = create(:merchant_with_items)
+      invoice = create(:invoice, merchant_id: merchant.id)
+      invoice2 = create(:invoice, merchant_id: merchant.id)
+      InvoiceItem.create(invoice_id: invoice.id, item_id: merchant.items.first.id, quantity: 2, unit_price: 128934)
+      InvoiceItem.create(invoice_id: invoice2.id, item_id: merchant.items.last.id, quantity: 3, unit_price: 823765)
       create(:transaction, invoice_id: invoice.id)
-      create(:transaction, invoice_id: other_invoice.id)
-      create(:invoice_item, quantity: 50, invoice_id: invoice.id, item_id: item.id)
-      create(:invoice_item, quantity: 49, invoice_id: another_invoice.id, item_id: item.id)
-      create(:invoice_item, quantity: 50, invoice_id: other_invoice.id, item_id: item.id)
+      create(:transaction, invoice_id: invoice2.id, result: 0)
 
-      get "/api/v1/items/#{item.id}/best_day"
-      result = JSON.parse(response.body)
+      get "/api/v1/items/#{merchant.items.last.id}/best_day"
 
-      expect(response).to have_http_status(200)
-      expect(result["best_day"]).to eq("2015-03-20T00:00:00.000Z")
+      expect(response).to be_success
+
+      raw_data = JSON.parse(response.body)
+
+      expect(raw_data).to have_key("best_day")
+      expect(raw_data["best_day"]).to be_a String
     end
   end
 end
