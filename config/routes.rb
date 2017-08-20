@@ -3,10 +3,10 @@ Rails.application.routes.draw do
     namespace :v1 do
 
       namespace :items do
+        get '/find', to: 'find#show'
+        get '/find_all', to: 'find#index'
         get '/:id/best_day', to: 'best_day#index'
         get '/most_items', to: 'most_items#index'
-        get '/find_all', to: 'search#index'
-        get '/find', to: 'search#show'
         get '/random', to: 'random#show'
         get '/:id/invoice_items', to: 'invoice_items#index'
         get '/:id/merchant', to: 'merchants#show'
