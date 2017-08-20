@@ -87,4 +87,13 @@ class Merchant < ApplicationRecord
       GROUP BY 1,2,3;"
      ]
   end
+
+  def self.total_revenue(date=nil)
+    select("merchants.id")
+      .joins(invoices: [:invoice_items, :transactions])
+      .where("transactions.result ='success'")
+      .where("invoices.created_at=?", date)
+      .group('id')
+      .sum("invoice_items.unit_price * invoice_items.quantity")
+  end
 end
