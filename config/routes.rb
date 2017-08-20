@@ -43,6 +43,7 @@ Rails.application.routes.draw do
         get '/most_revenue', to: 'revenue#index'
         get '/:id/favorite_customer', to: 'favorite_customer#show'
         get '/:id/revenue?date=x', to: 'total_revenue#show'
+        get '/revenue', to: 'revenue#index'
         get '/:id/customers_with_pending_invoices', to: 'customers_with_pending_invoices#show'
       end
 

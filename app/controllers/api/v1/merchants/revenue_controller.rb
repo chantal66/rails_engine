@@ -9,6 +9,6 @@ class Api::V1::Merchants::RevenueController < ApplicationController
   end
 
   def index
-   render json: Merchant.most_revenue(search_params[:quantity]), serializer: MostRevenueSerializer
+    render json: Merchant.revenue_for_all_merchants_by_date(params[:date]), serializer: RevenueByDateForAllMerchantsSerializer
   end
 end

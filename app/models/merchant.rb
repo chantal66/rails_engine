@@ -6,6 +6,19 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
   has_many :customers, through: :invoices
 
+  def self.revenue_for_all_merchants_by_date(date)
+    value = Merchant.find_by_sql [
+      "SELECT ROUND(SUM(invoice_items.quantity * invoice_items.unit_price / 100.00),2) AS total_revenue
+      FROM merchants
+      INNER JOIN items ON merchants.id = items.merchant_id
+      INNER JOIN invoice_items ON items.id = invoice_items.item_id
+      INNER JOIN invoices ON invoices.id = invoice_items.invoice_id
+      INNER JOIN transactions ON transactions.invoice_id = invoices.id
+      WHERE invoices.updated_at = '#{date}' AND transactions.result = 'success' "
+      ]
+    value.first
+  end
+
   def self.revenue_for_one_merchant(id)
     value = Merchant.find_by_sql [
       "SELECT merchants.name merchant_name, ROUND(SUM(invoice_items.quantity * invoice_items.unit_price / 100.00),2) AS revenue
@@ -40,12 +53,15 @@ class Merchant < ApplicationRecord
         .group(:merchant_id)
   end
 
-  def self.most_revenue(quantity=nil)
-    Merchant.select("merchants.*, sum(unit_price * quantity) AS revenue")
-            .joins(invoices: :invoice_items)
-            .group("id")
-            .limit(quantity)
-            .order("revenue DESC")
+  def self.most_revenue(quantity = 5)
+    Merchant.joins(
+        "INNER JOIN (" +
+            Invoice.joins(:transactions, :invoice_items).where(transactions: {result: 'success'})
+                .select("invoices.merchant_id, sum(invoice_items.quantity*invoice_items.unit_price::numeric)/100 AS total_revenue")
+                .group("invoices.merchant_id")
+                .order("total_revenue DESC")
+                .limit(quantity).to_sql + ") merchant_revenues ON merchant_revenues.merchant_id = merchants.id")
+        .select("merchant_revenues.total_revenue, merchants.*")
   end
 
   def self.revenue_for_merchant_by_date(merchant_id, date)
@@ -86,14 +102,5 @@ class Merchant < ApplicationRecord
       WHERE m.id = #{id}
       GROUP BY 1,2,3;"
      ]
-  end
-
-  def self.total_revenue(date=nil)
-    select("merchants.id")
-      .joins(invoices: [:invoice_items, :transactions])
-      .where("transactions.result ='success'")
-      .where("invoices.created_at=?", date)
-      .group('id')
-      .sum("invoice_items.unit_price * invoice_items.quantity")
   end
 end
