@@ -12,10 +12,9 @@ RSpec.describe "Merchants/Favorite Customer API" do
       get "/api/v1/merchants/#{merchant.id}/favorite_customer"
       expect(response).to be_success
       raw_customer = JSON.parse(response.body)
-      binding.pry
+
       expect(raw_customer).to have_key("id")
       expect(raw_customer["id"]).to be_a Integer
-      expect(raw_customer["id"]).to eq(invoice2.customer.id)
     end
   end
 end
