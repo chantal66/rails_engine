@@ -3,6 +3,6 @@ FactoryGirl.define do
     name "ItemName"
     description "ItemDescription"
     unit_price 97532
-    merchant
+    association :merchant, factory: :merchant
   end
 end
