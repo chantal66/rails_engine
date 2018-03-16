@@ -44,8 +44,13 @@ describe 'Invoice Relationship endpoints' do
   context "GET /api/v1/invoices/:id/items" do
     it "returns a collection of associated items" do
       invoice = create(:invoice)
-      item1, item2, item3 = create_list(:item, 3)
-      invoice.items.append(item1, item2, item3)
+      create(:item, id: 1)
+      create(:item, id: 2)
+      create(:item, id: 3)
+      invoice_item = create(:invoice_item, invoice_id: invoice.id, item_id: 1)
+      invoice_item = create(:invoice_item, invoice_id: invoice.id, item_id: 2)
+      invoice_item = create(:invoice_item, invoice_id: invoice.id, item_id: 3)
+
       get "/api/v1/invoices/#{invoice.id}/items"
 
       expect(response).to be_success
